@@ -40,6 +40,7 @@
 			var defaultDropdownItemValue = "0";
 			// 是否使用默认的下拉框
 			var useDefaultDropdownItem = false;
+			var isScrolling = false;
 			
 			// 下拉框相关组件
 			// 初始化时使用的input
@@ -60,7 +61,7 @@
 				if($dropdown.hasClass(dropdownExpandedClass)){
 					$dropdown.removeClass(dropdownExpandedClass);
 				}else{
-					
+										
 					// 隐藏下拉框列表
 					DropdownContainer.hideAllDropdown();
 					$dropdown.addClass(dropdownExpandedClass);
@@ -82,7 +83,7 @@
 						scrollInitialized = true;
 						
 					}
-					// 若使用自定义滚动条，则滚动
+					// 若使用自定义滚动条，则调整自定义滚动条位置
 					if(useCustomizedScroll){
 						scroll();
 					}
@@ -128,6 +129,7 @@
 				
 				// 若自定义滚动条，则监听mousewheel事件
 				if(useCustomizedScroll){
+					
 					$dropdownList.bind("mousewheel", function(event){
 					
 						// 滚动方向，有的浏览器使用wheelDelta，有的使用detail
@@ -141,12 +143,48 @@
 							$dropdownList.scrollTop(scrollTop + scrollDelta);
 						}
 						
-						// 滚动
+						// 调整自定义滚动条位置
 						scroll();
 						
 						// 阻止mousewheel事件冒泡
 						event.stopPropagation();
 					
+					});
+					
+					// 监听mousedown事件，用于拖动滚动条
+					$dropdownScroll.mousedown(function(event){
+						
+						// 解绑监听事件，停止拖动滚动条
+						function stopScroll(){
+							$(document).unbind("mouseup", stopScroll);
+							$(document).unbind("mousemove", moveScroll);
+							$dropdown.unbind("selectstart", disableSelection);
+						}
+						
+						// 拖动滚动条
+						function moveScroll(event){
+							var delta = event.originalEvent.movementY;
+							var scrollTop = $dropdownList.scrollTop() + delta / $dropdownScrollContainer.height() * $dropdownList.prop("scrollHeight");
+							$dropdownList.scrollTop(scrollTop);
+							scroll();
+						}
+						
+						// 禁用选择文字
+						function disableSelection(){
+							return false;
+						}
+						
+						// 是否在拖动滚动条，若是，则松开鼠标时不隐藏下拉框，否则隐藏
+						isScrolling = true;
+						
+						// 监听事件，用于拖动滚动条
+						$(document).bind("mouseup", stopScroll);
+						$(document).bind("mousemove", moveScroll);
+						$dropdown.bind("selectstart", disableSelection);
+						
+						// 阻止mousedown事件冒泡
+						event.stopPropagation();
+						
 					});
 				}
 
@@ -236,9 +274,10 @@
 			this.setSubDropdown = function(dropdown){
 				subDropdown = dropdown;
 			};
-			// 滚动自定义滚动条
+			
+			// 调整自定义滚动条位置
 			var scroll = function(){
-				var top = $dropdownList.scrollTop() / ($dropdownList.prop("scrollHeight") - $dropdownList.height()) * ($dropdownScrollContainer.height() - $dropdownScroll.height());
+				var top = $dropdownList.scrollTop() / $dropdownList.prop("scrollHeight") * $dropdownScrollContainer.height();
 				$dropdownScroll.css("top", top + "px");
 			};
 			
@@ -282,10 +321,15 @@
 				});
 				return $newDropdownItem;
 			};
+			
 			// 隐藏下拉框列表
 			this.hide = function(){
-				$dropdown.removeClass(dropdownExpandedClass);
+				if(!isScrolling){
+					$dropdown.removeClass(dropdownExpandedClass);
+				}
+				isScrolling = false;
 			};
+			
 			// 重新读取下拉框的数据
 			this.reload = function(dataToReload){
 				
@@ -307,6 +351,7 @@
 				this.setDefaultSelectedValue();		
 				
 			};
+			
 			// 清空下拉框长度选项
 			this.clear = function(){
 				
@@ -333,12 +378,14 @@
 				}
 				
 			};
+			
 			// 设置选中的选项的值
 			this.setSelectedValue = function(text, value){
 				$dropdownValue.text(text);
 				$dropdownValue.attr(dropdownItemDataAttrName, value);
 				$input.val(value);
 			};
+			
 			// 设置默认选中的选项的值
 			this.setDefaultSelectedValue = function(){
 				// 若使用默认选项，则设置默认选项的值，否则设置下拉框列表第一个选项的值
