@@ -180,7 +180,7 @@
 						// 监听事件，用于拖动滚动条
 						$(document).bind("mouseup", stopScroll);
 						$(document).bind("mousemove", moveScroll);
-						// 监听selectstart，用于禁用选择文字
+						// 监听selectstart事件，用于禁用选择文字
 						$dropdown.bind("selectstart", disableSelection);
 						
 						// 阻止mousedown事件冒泡
