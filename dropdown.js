@@ -298,17 +298,17 @@
 					// 隐藏下拉框列表
 					pointer.hide();
 					
-					if(pointer.subDropdown){
+					if(subDropdown){
 						
 						// 清空子下拉框的选项
-						pointer.subDropdown.clear();
+						subDropdown.clear();
 						
 						if(data){
 							
 							for(var i = 0;i < data.length;i++){
 								if(value == data[i][valueKey]){
 									// 子下拉框重新读取数据
-									pointer.subDropdown.reload(data[i]);
+									subDropdown.reload(data[i]);
 								}
 							}
 							
@@ -373,9 +373,9 @@
 				this.setDefaultSelectedValue();
 				
 				// 若有子下拉框，则清空子下拉框并重新读取
-				if(pointer.subDropdown){
-					pointer.subDropdown.clear();
-					pointer.subDropdown.reload();
+				if(subDropdown){
+					subDropdown.clear();
+					subDropdown.reload();
 				}
 				
 			};
