@@ -5,4 +5,5 @@ http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_orange.htm
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_green.html  
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_beautiful.html  
 ##TOFIX  
+##FIXED  
 部分浏览器无法使用鼠标拖动滚动条  
