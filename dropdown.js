@@ -154,6 +154,8 @@
 					// 监听mousedown事件，用于拖动滚动条
 					$dropdownScroll.mousedown(function(event){
 						
+						var lastScreenY = event.originalEvent.screenY;
+						
 						// 解绑监听事件，停止拖动滚动条
 						function stopScroll(){
 							$(document).unbind("mouseup", stopScroll);
@@ -163,10 +165,12 @@
 						
 						// 拖动滚动条
 						function moveScroll(event){
-							var delta = event.originalEvent.movementY;
+							var currScreenY = event.originalEvent.screenY;
+							var delta = currScreenY - lastScreenY;
 							var scrollTop = $dropdownList.scrollTop() + delta / $dropdownScrollContainer.height() * $dropdownList.prop("scrollHeight");
 							$dropdownList.scrollTop(scrollTop);
 							scroll();
+							lastScreenY = currScreenY;
 						}
 						
 						// 禁用选择文字
