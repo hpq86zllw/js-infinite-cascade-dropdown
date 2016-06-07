@@ -5,7 +5,7 @@ http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_orange.htm
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_green.html  
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_beautiful.html  
 ##TOFIX  
-useScroll为false时没有默认滚动条  
 没有选项时下拉框不对齐  
 ##FIXED  
 部分浏览器无法使用鼠标拖动滚动条  
+useScroll为false时没有默认滚动条（需要调整样式）  
