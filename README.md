@@ -6,6 +6,7 @@ http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_green.html
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_beautiful.html  
 ##TOFIX  
 没有选项时下拉框不对齐  
+IE浏览器使用鼠标拖动自定义滚动条时，滚动条速度与鼠标速度不一致  
 ##FIXED  
-部分浏览器无法使用鼠标拖动滚动条  
+部分浏览器无法使用鼠标拖动自定义滚动条  
 useScroll为false时没有默认滚动条（需要调整样式）  
