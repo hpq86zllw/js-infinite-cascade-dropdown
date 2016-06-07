@@ -4,9 +4,7 @@ http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_red.html
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_orange.html  
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_green.html  
 http://cccccccamel.com/examples/js-infinite-cascade-dropdown/dropdown_beautiful.html  
-##TODO  
-增加可选使用默认select标签下拉框  
 ##TOFIX  
-useScroll为false时没有默认下拉框  
+useScroll为false时没有默认滚动条  
 ##FIXED  
 部分浏览器无法使用鼠标拖动滚动条  
